@@ -1,1 +1,1 @@
-# vicsek-js
+# mandelbrot-js

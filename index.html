@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Maxime Munari</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://maximemunari.fr/scripts/mathjax.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="https://maximemunari.fr/scripts/p5.min.js"></script>
+    <link rel="icon" type="image/png" href="https://maximemunari.fr/images/logos/favicon.png" />
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar">
+        <ul class="links">
+          <li><a href="https://maximemunari.fr/index.html#main-anchor">Home</a></li>
+          <li><a href="https://maximemunari.fr/index.html#projects-anchor">Projects</a></li>
+          <li><a href="https://maximemunari.fr/index.html#about-anchor">About</a></li>
+        </ul>
+        <div class="toggle-button">
+          <img src="https://maximemunari.fr/images/logos/hamburger.svg" alt="dropdownmenu-icon" id="menu-icon" />
+        </div>
+      </div>
+      <div class="dropdown-menu">
+        <div class="container-menu">
+          <h1 id="container-title">Menu</h1>
+          <li><a href="https://maximemunari.fr/index.html#main-anchor">Home</a></li>
+          <li><a href="https://maximemunari.fr/index.html#projects-anchor">Projects</a></li>
+          <li><a href="https://maximemunari.fr/index.html#about-anchor">About</a></li>
+        </div>
+      </div>
+    </header>
+    <script src="https://maximemunari.fr/scripts/navbar.js"></script>
+    <div class="project">
+      <section class="project-section" id="project-description">
+        <hr class="hline-2" />
+        <hr class="hline-2" />
+        <h1>Vicsek Model: System of Self-Driven Particles</h1>
+        <hr class="hline-2" />
+        <hr class="hline-2" />
+
+        <h2>Introduction</h2>
+        <p>
+          The Vicsek model is a simple model with a novel type of dynamics introduced to investigate the emergence of
+          self-ordered motion in systems of particles with biologically motivated interaction. In this model, particles
+          are driven with a constant absolute velocity and at each time step, they assume the average direction of
+          motion of the particles in their neighborhood with some random perturbation added. The model demonstrates a
+          kinetic phase transition from no transport to finite net transport through spontaneous symmetry breaking of
+          the rotational symmetry.
+        </p>
+
+        <h2>Simulation</h2>
+        <p>
+          Consider a box of size $\rho$ in which $N$ particles are placed. The $i$-th particle can be described by its
+          position $\mathbf{x_i}$ and the direction of its velocity $\theta_i$, so that the velocity is computed by: \[
+          \mathbf{v_i}=v\begin{pmatrix} \cos\theta_i \\ \sin\theta_i \end{pmatrix} \] with constant speed $v$.
+        </p>
+        <p>
+          The angles of the particles are updated at each timestep to align with their neighbors. This means we update
+          the angle with: \[\theta_i(t+\Delta t)=\langle\theta_i(t)\rangle_{r}+\eta\] where
+          $\langle\theta_i(t)\rangle_{r}$ is the average direction of the velocities of the particles within a circle of
+          radius $r$ around it, and $\eta$ is a noise term representing random perturbations, akin to a temperature-like
+          variable.
+        </p>
+        <p>
+          Now that we know how to update the direction of each particle, we define the position at the next timestep by:
+          \[\mathbf{x_i}(t+1)=\mathbf{x_i}(t)+\mathbf{v}_i(t)\Delta t\]
+        </p>
+
+        <h2>Order Parameter</h2>
+        <p>
+          The average direction of motion, or the order parameter, is a crucial concept in the Vicsek model. It
+          quantifies the degree of alignment of the particles. When the system transitions from disorder to order, the
+          average direction changes from random orientations to a coherent movement in a single direction. This order
+          parameter is defined as the normalized sum of the velocities of all particles: \[ \zeta = \frac{1}{Nv} \left|
+          \sum_{i=1}^N \mathbf{v_i} \right| \] When the particles are aligned, \(\mathbf{v}_{\text{avg}}\) approaches 1,
+          indicating high order, while a value close to 0 indicates disorder.
+        </p>
+
+        <h2>Results</h2>
+        <p>The Vicsek model exhibits four regimes based on varying values of density and noise:</p>
+        <ul>
+          <li>
+            For small densities and high noise, particles tend to form groups moving coherently in random directions.
+          </li>
+          <li>At higher densities and high noise, particles move randomly with some correlation.</li>
+          <li>
+            For higher density and low noise, motion becomes ordered on a macroscopic scale, and all particles tend to
+            move in the same spontaneously selected direction.
+          </li>
+          <li>
+            At very high densities, the particles exhibit collective motion similar to a phase transition in equilibrium
+            systems.
+          </li>
+        </ul>
+        <p>
+          These observations indicate that the model captures a transition from disordered to ordered motion, similar to
+          the behavior of ferromagnetic systems, but in a nonequilibrium setting. This transition is continuous, as the
+          average velocity scales with the noise intensity and particle density, showing critical behavior similar to
+          equilibrium phase transitions.
+        </p>
+
+        <h2>References</h2>
+        <ul>
+          <li style="list-style-type: none">
+            [1] Tamas Vicsek, Andras Czirok, Eshel Ben-Jacob, Inon Cohen, and Ofer Shochet. "Novel Type of Phase
+            Transition in a System of Self-Driven Particles." Physical Review Letters, vol. 75, no. 6, 1995, pp.
+            1226-1229.
+          </li>
+          <li style="list-style-type: none">
+            [2] "Vicsek Model." Wikipedia,
+            <a href="https://en.wikipedia.org/wiki/Vicsek_model" target="">https://en.wikipedia.org/wiki/Vicsek_model</a
+            >.
+          </li>
+        </ul>
+      </section>
+
+      <section class="project-section" id="project-animation">
+        <div id="animation-description">
+          <ul class="instructions-list">
+            Using the Sliders you can modify:
+            <li>The Number of Individual: $N$</li>
+            <li>The Length of the Box: $L$</li>
+            <li>The Bias of the direction: $\eta$</li>
+          </ul>
+        </div>
+        <div id="animation-embedding">
+          <div id="animation-title">
+            <div id="animation-title-threebuttons">
+              <button class="button"></button><button class="button"></button><button class="button"></button>
+            </div>
+            <b id="animation-title-filename">vicsek.js</b>
+          </div>
+          <hr class="hline" />
+          <div id="animation-both">
+            <div id="animation-widgets"></div>
+            <hr class="hline" />
+            <div id="animation-canvas"></div>
+            <script src="scripts/complex.js"></script>
+            <script src="scripts/widgets.js"></script>
+            <script src="scripts/simulation.js"></script>
+            <script src="scripts/particle.js"></script>
+            <script src="scripts/vicsek.js"></script>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <p>No Copyright</p>
+      <p id="emoji">Made with &#9825; in HTML & CSS</p>
+      <audio id="music" src="https://maximemunari.fr/images/portal.mp3"></audio>
+    </footer>
+  </body>
+</html>
+
